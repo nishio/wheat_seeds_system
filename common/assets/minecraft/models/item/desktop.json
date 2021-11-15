@@ -1,0 +1,34 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "item/desktop",
+		"particle": "item/desktop"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 1],
+			"to": [15, 5, 16],
+			"faces": {
+				"north": {"uv": [15, 0, 16, 5], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [5, 0, 10, 15], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [15, 0, 16, 5], "texture": "#0"},
+				"west": {"uv": [0, 0, 5, 15], "rotation": 270, "texture": "#0"},
+				"up": {"uv": [14, 0, 15, 15], "texture": "#0"},
+				"down": {"uv": [14, 0, 15, 15], "rotation": 180, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"firstperson_righthand": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"gui": {
+			"rotation": [0, 91, 0]
+		},
+		"fixed": {
+			"rotation": [-90, 0, 0],
+			"translation": [0, 0, -17],
+			"scale": [2, 2, 2]
+		}
+	}
+}
