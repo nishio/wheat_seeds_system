@@ -21,6 +21,17 @@ def cactus_models(models={}):
     return models
 
 
+def laptop_models(models={}):
+    models[600] = "macbook"
+    models[601] = "desktop"
+    models[602] = "monitor"
+#    models[603] = "large_monitor"
+#    models[604] = "wall_monitor"
+    models[603] = "keyboard"
+    models[604] = "ipad"
+    return models
+
+
 def generate_wheat_seeds(models):
     shutil.rmtree(TARGET_DIR, ignore_errors=True)
     os.makedirs(ITEM_DIR)
@@ -59,6 +70,7 @@ def copy_files(frm, items, textures=[], to="build"):
     os.makedirs(ITEMS_DST, exist_ok=True)
     for item in items:
         shutil.copy(f"{ITEMS_SRC}/{item}.json", ITEMS_DST)
+        print("copy", item, ITEMS_DST)
 
     TEXTURES_DST = f"{to}/assets/minecraft/textures/item"
     TEXTURES_SRC = f"{frm}/assets/minecraft/textures/item"
@@ -67,35 +79,66 @@ def copy_files(frm, items, textures=[], to="build"):
         shutil.copy(f"{TEXTURES_SRC}/{texture}.png", TEXTURES_DST)
 
 
+def write_mcmeta(desc, dst="build"):
+    mcmeta = {
+        "pack": {
+            "pack_format": 7,
+            "description": desc
+        }
+    }
+    json.dump(mcmeta, open(f"{dst}/pack.mcmeta", "w"), indent=2)
+
+
+def zip(name):
+    os.chdir(name)
+    subprocess.check_call(f"zip -r ../{name}.zip .", shell=True)
+    os.chdir("..")
+
+
 def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
 
     shutil.rmtree("build", ignore_errors=True)
-    copy_files(
-        "common",
-        ["cactus_arm", "cactus_flower", "cactus_flower2"],
-        ["cactus_flower", "cactus_flower2"])
-
     models = cactus_models()
     generate_wheat_seeds(models)
     copy_files("generated", ["wheat_seeds"])
 
+    copy_files(
+        "common",
+        models.values(),
+        ["cactus_flower", "cactus_flower2"])
+
     # make `pack.mcmeta`
-    mcmeta = {
-        "pack": {
-            "pack_format": 7,
-            "description": PACK_DESC
-        }
-    }
-    json.dump(mcmeta, open("build/pack.mcmeta", "w"), indent=2)
+    write_mcmeta(PACK_DESC)
 
     shutil.rmtree(PACK_NAME, ignore_errors=True)
     shutil.move("build", PACK_NAME)
-    os.chdir(PACK_NAME)
-    subprocess.check_call(f"zip -r ../{PACK_NAME}.zip .", shell=True)
-    os.chdir("..")
+    zip(PACK_NAME)
+
+
+def build_laptop_pack():
+    PACK_NAME = "laptop"
+    PACK_DESC = "Laptop, Desktop and Keyboard"
+
+    shutil.rmtree("build", ignore_errors=True)
+    models = laptop_models()
+    generate_wheat_seeds(models)
+    copy_files("generated", ["wheat_seeds"])
+
+    copy_files(
+        "common",
+        models.values(),
+        ["black", "desktop", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
+
+    # make `pack.mcmeta`
+    write_mcmeta(PACK_DESC)
+
+    shutil.rmtree(PACK_NAME, ignore_errors=True)
+    shutil.move("build", PACK_NAME)
+    zip(PACK_NAME)
 
 
 if __name__ == '__main__':
-    build_cactus_pack()
+    # build_cactus_pack()
+    build_laptop_pack()
