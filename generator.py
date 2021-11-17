@@ -155,7 +155,7 @@ def zip(name):
     if os.path.isfile(target):
         os.remove(target)
     os.chdir(name)
-    subprocess.check_call(f"zip -r {target} .", shell=True)
+    subprocess.check_call(["zip", "-r", target, "."])
     os.chdir("..")
 
 
@@ -224,7 +224,8 @@ def build_chair_pack():
         [])
     copy_files(
         "common",
-        [],
+        ["round_chair", "chair", "tall_chair",
+            "chair_with_desk", "chair_with_arm"],
         ["black", "mesh", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
 
     # make `pack.mcmeta`
