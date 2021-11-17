@@ -7,11 +7,33 @@ TARGET_DIR = "generated"
 ITEM_DIR = f"{TARGET_DIR}/assets/minecraft/models/item"
 
 
+COLORS = "white orange magenta light_blue yellow lime pink gray light_gray cyan purple blue brown green red black".split()
+assert len(COLORS) == 16
+# 0:white 1:orange 2:magenta 3:light_blue 4:yellow 5:lime 6:pink 7:gray 8:light_gray
+# 9:cyan 10:purple 11:blue 12:brown 13:green 14:red 15:black
+
+
+def wool(color):
+    return f"block/{color}_wool"
+
+
+def make_color_variation(offset, prefix, parent, texture_name, color_type, models):
+    for id, color in enumerate(COLORS):
+        data = {
+            "parent": parent,
+            "textures": {texture_name: color_type(color)}
+        }
+        name = f"{prefix}_{color}"
+        write_item(data, name)
+        assert offset + id not in models
+        models[offset + id] = name
+
+
 def write_item(data, name):
     path = os.path.join(
         ITEM_DIR, f"{name}.json")
     json.dump(data, open(path, "w"), indent=2)
-    print(f"wrote {name}")
+    print(f"wrote {name}, {path}")
 
 
 def cactus_models(models={}):
@@ -25,17 +47,53 @@ def laptop_models(models={}):
     models[600] = "macbook"
     models[601] = "desktop"
     models[602] = "monitor"
-#    models[603] = "large_monitor"
-#    models[604] = "wall_monitor"
+    # models[603] = "large_monitor"
+    # models[604] = "wall_monitor"
     models[603] = "keyboard"
     models[604] = "ipad"
     return models
 
 
-def generate_wheat_seeds(models):
-    shutil.rmtree(TARGET_DIR, ignore_errors=True)
-    os.makedirs(ITEM_DIR)
+def chair_models(models={}):
+    # 100-115
+    make_color_variation(
+        100, "round_chair",
+        "item/round_chair",
+        "seat", wool, models
+    )
 
+    # 120-135
+    make_color_variation(
+        120, "chair",
+        "item/chair",
+        "seat", wool, models
+    )
+
+    # 140-155
+    make_color_variation(
+        140, "tall_chair",
+        "item/tall_chair",
+        "seat", wool, models
+    )
+
+    # 160-175
+    make_color_variation(
+        160, "chair_with_desk",
+        "item/chair_with_desk",
+        "seat", wool, models
+    )
+
+    # 180-195
+    make_color_variation(
+        180, "chair_with_arm",
+        "item/chair_with_arm",
+        "seat", wool, models
+    )
+
+    return models
+
+
+def generate_wheat_seeds(models):
     # put models into wheat_seeds
     SEED = {
         "parent": "minecraft:item/generated",
@@ -68,14 +126,17 @@ def copy_files(frm, items, textures=[], to="build"):
     ITEMS_DST = f"{to}/assets/minecraft/models/item"
     ITEMS_SRC = f"{frm}/assets/minecraft/models/item"
     os.makedirs(ITEMS_DST, exist_ok=True)
+    print(f"copy items into {ITEMS_DST}")
     for item in items:
+        print("copy", item)
         shutil.copy(f"{ITEMS_SRC}/{item}.json", ITEMS_DST)
-        print("copy", item, ITEMS_DST)
 
     TEXTURES_DST = f"{to}/assets/minecraft/textures/item"
     TEXTURES_SRC = f"{frm}/assets/minecraft/textures/item"
     os.makedirs(TEXTURES_DST, exist_ok=True)
+    print(f"copy textures into {TEXTURES_DST}")
     for texture in textures:
+        print("copy", texture)
         shutil.copy(f"{TEXTURES_SRC}/{texture}.png", TEXTURES_DST)
 
 
@@ -90,17 +151,22 @@ def write_mcmeta(desc, dst="build"):
 
 
 def zip(name):
+    target = os.path.abspath(f"{name}.zip")
+    if os.path.isfile(target):
+        os.remove(target)
     os.chdir(name)
-    subprocess.check_call(f"zip -r ../{name}.zip .", shell=True)
+    subprocess.check_call(f"zip -r {target} .", shell=True)
     os.chdir("..")
 
 
 def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
+    shutil.rmtree(TARGET_DIR, ignore_errors=True)
+    os.makedirs(ITEM_DIR)
+    models = cactus_models()
 
     shutil.rmtree("build", ignore_errors=True)
-    models = cactus_models()
     generate_wheat_seeds(models)
     copy_files("generated", ["wheat_seeds"])
 
@@ -120,9 +186,11 @@ def build_cactus_pack():
 def build_laptop_pack():
     PACK_NAME = "laptop"
     PACK_DESC = "Laptop, Desktop and Keyboard"
+    shutil.rmtree(TARGET_DIR, ignore_errors=True)
+    os.makedirs(ITEM_DIR)
+    models = laptop_models()
 
     shutil.rmtree("build", ignore_errors=True)
-    models = laptop_models()
     generate_wheat_seeds(models)
     copy_files("generated", ["wheat_seeds"])
 
@@ -139,6 +207,35 @@ def build_laptop_pack():
     zip(PACK_NAME)
 
 
+def build_chair_pack():
+    PACK_NAME = "chairs"
+    PACK_DESC = "Colorful Chairs"
+    shutil.rmtree(TARGET_DIR, ignore_errors=True)
+    os.makedirs(ITEM_DIR)
+    models = chair_models()
+
+    shutil.rmtree("build", ignore_errors=True)
+    generate_wheat_seeds(models)
+    copy_files("generated", ["wheat_seeds"])
+
+    copy_files(
+        "generated",
+        models.values(),
+        [])
+    copy_files(
+        "common",
+        [],
+        ["black", "mesh", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
+
+    # make `pack.mcmeta`
+    write_mcmeta(PACK_DESC)
+
+    shutil.rmtree(PACK_NAME, ignore_errors=True)
+    shutil.move("build", PACK_NAME)
+    zip(PACK_NAME)
+
+
 if __name__ == '__main__':
     # build_cactus_pack()
-    build_laptop_pack()
+    # build_laptop_pack()
+    build_chair_pack()
