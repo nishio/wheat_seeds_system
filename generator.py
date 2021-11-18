@@ -65,36 +65,15 @@ def laptop_model_refs(models={}):
 
 
 def chair_model_refs(models={}):
-    # 100-115
-    make_variation_reference(
-        100, "round_chair",
-        WOOL_TEXTURES, models
-    )
-
-    # 120-135
-    make_variation_reference(
-        120, "chair",
-        WOOL_TEXTURES, models
-    )
-
-    # 140-155
-    make_variation_reference(
-        140, "tall_chair",
-        WOOL_TEXTURES, models
-    )
-
-    # 160-175
-    make_variation_reference(
-        160, "chair_with_desk",
-        WOOL_TEXTURES, models
-    )
-
-    # 180-195
-    make_variation_reference(
-        180, "chair_with_arm",
-        WOOL_TEXTURES, models
-    )
-
+    sections = [
+        (100, "round_chair"),
+        (120, "chair"),
+        (140, "tall_chair"),
+        (160, "chair_with_desk"),
+        (180, "chair_with_arm"),
+    ]
+    for offset, name in sections:
+        make_variation_reference(offset, name, WOOL_TEXTURES, models)
     return models
 
 
@@ -222,40 +201,15 @@ def build_chair_pack():
     PACK_DESC = "Colorful Chairs"
     ready_pack()
     models = chair_model_refs({})
-    # 100-115
-    make_variation_modelfiles(
-        "round_chair",
-        "item/round_chair",
-        "seat", WOOL_TEXTURES
-    )
+    BASES = ["round_chair", "chair", "tall_chair",
+             "chair_with_desk", "chair_with_arm"]
 
-    # 120-135
-    make_variation_modelfiles(
-        "chair",
-        "item/chair",
-        "seat", WOOL_TEXTURES
-    )
-
-    # 140-155
-    make_variation_modelfiles(
-        "tall_chair",
-        "item/tall_chair",
-        "seat", WOOL_TEXTURES
-    )
-
-    # 160-175
-    make_variation_modelfiles(
-        "chair_with_desk",
-        "item/chair_with_desk",
-        "seat", WOOL_TEXTURES
-    )
-
-    # 180-195
-    make_variation_modelfiles(
-        "chair_with_arm",
-        "item/chair_with_arm",
-        "seat", WOOL_TEXTURES
-    )
+    for base in BASES:
+        make_variation_modelfiles(
+            base,
+            f"item/{base}",
+            "seat", WOOL_TEXTURES
+        )
 
     copy_files(
         "generated",
@@ -263,8 +217,7 @@ def build_chair_pack():
         [])
     copy_files(
         "common",
-        ["round_chair", "chair", "tall_chair",
-            "chair_with_desk", "chair_with_arm"],
+        BASES,
         ["black", "mesh", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
 
     finish_pack(PACK_NAME, PACK_DESC)
