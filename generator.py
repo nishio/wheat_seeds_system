@@ -17,13 +17,36 @@ def wool(color):
     return f"block/{color}_wool"
 
 
-def make_color_variation(offset, prefix, parent, texture_name, color_type, models):
+WOOL_TEXTURES = {c: wool(c) for c in COLORS}
+
+
+def _make_color_variation(offset, prefix, parent, texture_name, color_type, models):
     for id, color in enumerate(COLORS):
         data = {
             "parent": parent,
             "textures": {texture_name: color_type(color)}
         }
         name = f"{prefix}_{color}"
+        # write_item(data, name)
+        assert offset + id not in models
+        models[offset + id] = name
+
+
+def make_variation(offset, prefix, parent, texture_name, texture_map, models):
+    """
+    >>> models = {}
+    >>> make_variation(0, "chair", "item/chair", "seat", WOOL_TEXTURES, models)
+    >>> models2 = {}
+    >>> _make_color_variation(0, "chair", "item/chair", "seat", wool, models2)
+    >>> models == models2
+    True
+    """
+    for id, (k, v) in enumerate(texture_map.items()):
+        data = {
+            "parent": parent,
+            "textures": {texture_name: v}
+        }
+        name = f"{prefix}_{k}"
         write_item(data, name)
         assert offset + id not in models
         models[offset + id] = name
@@ -56,38 +79,38 @@ def laptop_models(models={}):
 
 def chair_models(models={}):
     # 100-115
-    make_color_variation(
+    make_variation(
         100, "round_chair",
         "item/round_chair",
-        "seat", wool, models
+        "seat", WOOL_TEXTURES, models
     )
 
     # 120-135
-    make_color_variation(
+    make_variation(
         120, "chair",
         "item/chair",
-        "seat", wool, models
+        "seat", WOOL_TEXTURES, models
     )
 
     # 140-155
-    make_color_variation(
+    make_variation(
         140, "tall_chair",
         "item/tall_chair",
-        "seat", wool, models
+        "seat", WOOL_TEXTURES, models
     )
 
     # 160-175
-    make_color_variation(
+    make_variation(
         160, "chair_with_desk",
         "item/chair_with_desk",
-        "seat", wool, models
+        "seat", WOOL_TEXTURES, models
     )
 
     # 180-195
-    make_color_variation(
+    make_variation(
         180, "chair_with_arm",
         "item/chair_with_arm",
-        "seat", wool, models
+        "seat", WOOL_TEXTURES, models
     )
 
     return models
