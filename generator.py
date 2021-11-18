@@ -43,15 +43,17 @@ def write_item(data, name):
     json.dump(data, open(path, "w"), indent=2)
     print(f"wrote {name}, {path}")
 
+# model refernce definitions
 
-def cactus_models(models={}):
+
+def cactus_model_refs(models={}):
     models[500] = "cactus_arm"
     models[501] = "cactus_flower"
     models[502] = "cactus_flower2"
     return models
 
 
-def laptop_models(models={}):
+def laptop_model_refs(models={}):
     models[600] = "macbook"
     models[601] = "desktop"
     models[602] = "monitor"
@@ -62,7 +64,7 @@ def laptop_models(models={}):
     return models
 
 
-def chair_models(models={}):
+def chair_model_refs(models={}):
     # 100-115
     make_variation_reference(
         100, "round_chair",
@@ -93,6 +95,14 @@ def chair_models(models={}):
         WOOL_TEXTURES, models
     )
 
+    return models
+
+
+def all_model_refs():
+    models = {}
+    models = cactus_model_refs(models)
+    models = laptop_model_refs(models)
+    models = chair_model_refs(models)
     return models
 
 
@@ -162,17 +172,21 @@ def zip(name):
     os.chdir("..")
 
 
+def ready_pack():
+    shutil.rmtree(TARGET_DIR, ignore_errors=True)
+    os.makedirs(ITEM_DIR)
+    all_models = all_model_refs()
+
+    shutil.rmtree("build", ignore_errors=True)
+    generate_wheat_seeds(all_models)
+    copy_files("generated", ["wheat_seeds"])
+
+
 def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
-    shutil.rmtree(TARGET_DIR, ignore_errors=True)
-    os.makedirs(ITEM_DIR)
-    models = cactus_models()
-
-    shutil.rmtree("build", ignore_errors=True)
-    generate_wheat_seeds(models)
-    copy_files("generated", ["wheat_seeds"])
-
+    ready_pack()
+    models = cactus_model_refs({})
     copy_files(
         "common",
         models.values(),
@@ -189,14 +203,8 @@ def build_cactus_pack():
 def build_laptop_pack():
     PACK_NAME = "laptop"
     PACK_DESC = "Laptop, Desktop and Keyboard"
-    shutil.rmtree(TARGET_DIR, ignore_errors=True)
-    os.makedirs(ITEM_DIR)
-    models = laptop_models()
-
-    shutil.rmtree("build", ignore_errors=True)
-    generate_wheat_seeds(models)
-    copy_files("generated", ["wheat_seeds"])
-
+    ready_pack()
+    models = laptop_model_refs({})
     copy_files(
         "common",
         models.values(),
@@ -213,14 +221,8 @@ def build_laptop_pack():
 def build_chair_pack():
     PACK_NAME = "chairs"
     PACK_DESC = "Colorful Chairs"
-    shutil.rmtree(TARGET_DIR, ignore_errors=True)
-    os.makedirs(ITEM_DIR)
-    models = chair_models()
-
-    shutil.rmtree("build", ignore_errors=True)
-    generate_wheat_seeds(models)
-    copy_files("generated", ["wheat_seeds"])
-
+    ready_pack()
+    models = chair_model_refs({})
     # 100-115
     make_variation_modelfiles(
         "round_chair",
