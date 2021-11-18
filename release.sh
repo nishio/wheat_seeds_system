@@ -1,1 +1,1 @@
-gh release create v0.4.0 cactus.zip laptop.zip chairs.zip
+gh release create v0.5.0 cactus.zip laptop.zip chairs.zip all-in-one.zip
