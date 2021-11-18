@@ -20,16 +20,21 @@ def wool(color):
 WOOL_TEXTURES = {c: wool(c) for c in COLORS}
 
 
-def make_variation(offset, prefix, parent, texture_name, texture_map, models):
-    for id, (k, v) in enumerate(texture_map.items()):
+def make_variation_reference(offset, prefix, texture_map, models):
+    for id, k in enumerate(texture_map):
+        name = f"{prefix}_{k}"
+        assert offset + id not in models
+        models[offset + id] = name
+
+
+def make_variation_modelfiles(prefix, parent, texture_name, texture_map):
+    for k, v in texture_map.items():
         data = {
             "parent": parent,
             "textures": {texture_name: v}
         }
         name = f"{prefix}_{k}"
         write_item(data, name)
-        assert offset + id not in models
-        models[offset + id] = name
 
 
 def write_item(data, name):
@@ -59,38 +64,33 @@ def laptop_models(models={}):
 
 def chair_models(models={}):
     # 100-115
-    make_variation(
+    make_variation_reference(
         100, "round_chair",
-        "item/round_chair",
-        "seat", WOOL_TEXTURES, models
+        WOOL_TEXTURES, models
     )
 
     # 120-135
-    make_variation(
+    make_variation_reference(
         120, "chair",
-        "item/chair",
-        "seat", WOOL_TEXTURES, models
+        WOOL_TEXTURES, models
     )
 
     # 140-155
-    make_variation(
+    make_variation_reference(
         140, "tall_chair",
-        "item/tall_chair",
-        "seat", WOOL_TEXTURES, models
+        WOOL_TEXTURES, models
     )
 
     # 160-175
-    make_variation(
+    make_variation_reference(
         160, "chair_with_desk",
-        "item/chair_with_desk",
-        "seat", WOOL_TEXTURES, models
+        WOOL_TEXTURES, models
     )
 
     # 180-195
-    make_variation(
+    make_variation_reference(
         180, "chair_with_arm",
-        "item/chair_with_arm",
-        "seat", WOOL_TEXTURES, models
+        WOOL_TEXTURES, models
     )
 
     return models
@@ -220,6 +220,41 @@ def build_chair_pack():
     shutil.rmtree("build", ignore_errors=True)
     generate_wheat_seeds(models)
     copy_files("generated", ["wheat_seeds"])
+
+    # 100-115
+    make_variation_modelfiles(
+        "round_chair",
+        "item/round_chair",
+        "seat", WOOL_TEXTURES
+    )
+
+    # 120-135
+    make_variation_modelfiles(
+        "chair",
+        "item/chair",
+        "seat", WOOL_TEXTURES
+    )
+
+    # 140-155
+    make_variation_modelfiles(
+        "tall_chair",
+        "item/tall_chair",
+        "seat", WOOL_TEXTURES
+    )
+
+    # 160-175
+    make_variation_modelfiles(
+        "chair_with_desk",
+        "item/chair_with_desk",
+        "seat", WOOL_TEXTURES
+    )
+
+    # 180-195
+    make_variation_modelfiles(
+        "chair_with_arm",
+        "item/chair_with_arm",
+        "seat", WOOL_TEXTURES
+    )
 
     copy_files(
         "generated",
