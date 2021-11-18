@@ -236,7 +236,25 @@ def build_chair_pack():
     zip(PACK_NAME)
 
 
-if __name__ == '__main__':
-    # build_cactus_pack()
-    # build_laptop_pack()
+def _test():
+    import doctest
+    doctest.testmod()
+    g = globals()
+    for k in sorted(g):
+        if k.startswith("TEST_"):
+            print(k)
+            doctest.run_docstring_examples(g[k], g, name=k)
+
+
+def main():
+    build_cactus_pack()
+    build_laptop_pack()
     build_chair_pack()
+
+
+if __name__ == "__main__":
+    import sys
+    if sys.argv[-1] == "-t":
+        _test()
+        sys.exit()
+    main()
