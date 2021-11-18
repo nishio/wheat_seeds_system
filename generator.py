@@ -182,6 +182,15 @@ def ready_pack():
     copy_files("generated", ["wheat_seeds"])
 
 
+def finish_pack(PACK_NAME, PACK_DESC):
+    # make `pack.mcmeta`
+    write_mcmeta(PACK_DESC)
+    # rename `build` to pack name and zip
+    shutil.rmtree(PACK_NAME, ignore_errors=True)
+    shutil.move("build", PACK_NAME)
+    zip(PACK_NAME)
+
+
 def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
@@ -192,12 +201,7 @@ def build_cactus_pack():
         models.values(),
         ["cactus_flower", "cactus_flower2"])
 
-    # make `pack.mcmeta`
-    write_mcmeta(PACK_DESC)
-
-    shutil.rmtree(PACK_NAME, ignore_errors=True)
-    shutil.move("build", PACK_NAME)
-    zip(PACK_NAME)
+    finish_pack(PACK_NAME, PACK_DESC)
 
 
 def build_laptop_pack():
@@ -210,12 +214,7 @@ def build_laptop_pack():
         models.values(),
         ["black", "desktop", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
 
-    # make `pack.mcmeta`
-    write_mcmeta(PACK_DESC)
-
-    shutil.rmtree(PACK_NAME, ignore_errors=True)
-    shutil.move("build", PACK_NAME)
-    zip(PACK_NAME)
+    finish_pack(PACK_NAME, PACK_DESC)
 
 
 def build_chair_pack():
@@ -268,12 +267,7 @@ def build_chair_pack():
             "chair_with_desk", "chair_with_arm"],
         ["black", "mesh", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
 
-    # make `pack.mcmeta`
-    write_mcmeta(PACK_DESC)
-
-    shutil.rmtree(PACK_NAME, ignore_errors=True)
-    shutil.move("build", PACK_NAME)
-    zip(PACK_NAME)
+    finish_pack(PACK_NAME, PACK_DESC)
 
 
 def _test():
