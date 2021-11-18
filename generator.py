@@ -98,7 +98,9 @@ def generate_wheat_seeds(models):
 
     overrides = SEED["overrides"]
 
-    for id in models:
+    # sort required because of Minecraft behavoir
+    # (if model with larger CustomModelData appears first, it will be ignored)
+    for id in sorted(models):
         name = models[id]
         model = name
         if "item/" not in model:
