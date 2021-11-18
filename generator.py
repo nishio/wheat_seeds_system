@@ -170,17 +170,21 @@ def finish_pack(PACK_NAME, PACK_DESC):
     zip(PACK_NAME)
 
 
+CACTUS_TEXTURES = ["cactus_flower", "cactus_flower2"]
+
+
 def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
     ready_pack()
     models = cactus_model_refs({})
-    copy_files(
-        "common",
-        models.values(),
-        ["cactus_flower", "cactus_flower2"])
-
+    copy_files("common", models.values(), CACTUS_TEXTURES)
     finish_pack(PACK_NAME, PACK_DESC)
+
+
+LAPTOP_TEXTURES = [
+    "black", "desktop", "keyboard",
+    "macbook", "monitor_arm", "monitor_frame", "white"]
 
 
 def build_laptop_pack():
@@ -188,10 +192,7 @@ def build_laptop_pack():
     PACK_DESC = "Laptop, Desktop and Keyboard"
     ready_pack()
     models = laptop_model_refs({})
-    copy_files(
-        "common",
-        models.values(),
-        ["black", "desktop", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
+    copy_files("common", models.values(), LAPTOP_TEXTURES)
 
     finish_pack(PACK_NAME, PACK_DESC)
 
@@ -211,15 +212,38 @@ def build_chair_pack():
             "seat", WOOL_TEXTURES
         )
 
-    copy_files(
-        "generated",
-        models.values(),
-        [])
-    copy_files(
-        "common",
-        BASES,
-        ["black", "mesh", "keyboard", "macbook", "monitor_arm", "monitor_frame", "white"])
+    copy_files("generated", models.values(), [])
+    copy_files("common", BASES, ["black", "mesh"])
 
+    finish_pack(PACK_NAME, PACK_DESC)
+
+
+def build_all_in_one_pack():
+    PACK_NAME = "all-in-one"
+    PACK_DESC = "All-in-one Wheat Seeds System"
+    ready_pack()
+    # cactus
+    models = cactus_model_refs({})
+    copy_files("common", models.values(), CACTUS_TEXTURES)
+
+    # laptop
+    models = laptop_model_refs({})
+    copy_files("common", models.values(), LAPTOP_TEXTURES)
+    # chairs
+    models = chair_model_refs({})
+    BASES = ["round_chair", "chair", "tall_chair",
+             "chair_with_desk", "chair_with_arm"]
+
+    for base in BASES:
+        make_variation_modelfiles(
+            base,
+            f"item/{base}",
+            "seat", WOOL_TEXTURES
+        )
+
+    copy_files("generated", models.values(), [])
+    copy_files("common", BASES, ["black", "mesh"])
+    # end
     finish_pack(PACK_NAME, PACK_DESC)
 
 
@@ -237,6 +261,7 @@ def main():
     build_cactus_pack()
     build_laptop_pack()
     build_chair_pack()
+    build_all_in_one_pack()
 
 
 if __name__ == "__main__":
