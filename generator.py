@@ -20,27 +20,7 @@ def wool(color):
 WOOL_TEXTURES = {c: wool(c) for c in COLORS}
 
 
-def _make_color_variation(offset, prefix, parent, texture_name, color_type, models):
-    for id, color in enumerate(COLORS):
-        data = {
-            "parent": parent,
-            "textures": {texture_name: color_type(color)}
-        }
-        name = f"{prefix}_{color}"
-        # write_item(data, name)
-        assert offset + id not in models
-        models[offset + id] = name
-
-
 def make_variation(offset, prefix, parent, texture_name, texture_map, models):
-    """
-    >>> models = {}
-    >>> make_variation(0, "chair", "item/chair", "seat", WOOL_TEXTURES, models)
-    >>> models2 = {}
-    >>> _make_color_variation(0, "chair", "item/chair", "seat", wool, models2)
-    >>> models == models2
-    True
-    """
     for id, (k, v) in enumerate(texture_map.items()):
         data = {
             "parent": parent,
