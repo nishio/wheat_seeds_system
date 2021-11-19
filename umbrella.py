@@ -26,8 +26,9 @@ def main():
         "0", TEXTURES
     )
     pack.copy_files("generated", models.values(), [])
-    pack.copy_files("common", ["umbrella_up", "umbrella_down"],
-                    TEXTURES.values())
+    pack.copy_files(
+        "common", ["umbrella_up", "umbrella_down"],
+        TEXTURES.values())
 
 
 def build(all_models):

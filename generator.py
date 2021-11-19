@@ -44,11 +44,20 @@ def _test():
             doctest.run_docstring_examples(g[k], g, name=k)
 
 
+def build(module):
+    PACK_NAME = "chairs"
+    PACK_DESC = "Colorful Chairs"
+    pack.ready(all_models)
+    module.main()
+    pack.finish(module.PACK_NAME, module.DESCRIPTION)
+
+
 def main():
+    global all_models
     all_models = all_model_refs()
     cactus.build(all_models)
     laptop.build(all_models)
-    chair.build(all_models)
+    build(chair)
     umbrella.build(all_models)
     diagonal.build(all_models)
     build_all_in_one_pack(all_models)

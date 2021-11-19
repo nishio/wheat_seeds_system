@@ -1,6 +1,8 @@
 import pack
 import textures
 import reference
+PACK_NAME = "chairs"
+DESCRIPTION = "Colorful Chairs"
 
 
 def model_refs(models={}):
@@ -34,8 +36,6 @@ def main():
 
 
 def build(all_models):
-    PACK_NAME = "chairs"
-    PACK_DESC = "Colorful Chairs"
     pack.ready(all_models)
     main()
     pack.finish(PACK_NAME, PACK_DESC)
