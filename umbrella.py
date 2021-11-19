@@ -1,5 +1,7 @@
 import reference
 import pack
+PACK_NAME = "umbrella"
+DESCRIPTION = "Umbrella"
 
 TEXTURES = {
     "white": "white_triangle",
@@ -29,11 +31,3 @@ def main():
     pack.copy_files(
         "common", ["umbrella_up", "umbrella_down"],
         TEXTURES.values())
-
-
-def build(all_models):
-    PACK_NAME = "umbrella"
-    PACK_DESC = "Umbrella"
-    pack.ready(all_models)
-    main()
-    pack.finish(PACK_NAME, PACK_DESC)

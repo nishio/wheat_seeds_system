@@ -56,7 +56,7 @@ def main():
     build(cactus)
     build(laptop)
     build(chair)
-    umbrella.build(all_models)
+    build(umbrella)
     diagonal.build(all_models)
     build_all_in_one_pack(all_models)
 
