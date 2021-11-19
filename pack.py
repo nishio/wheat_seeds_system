@@ -6,8 +6,6 @@ import subprocess
 TARGET_DIR = "generated"
 ITEM_DIR = f"{TARGET_DIR}/assets/minecraft/models/item"
 
-##
-
 
 def assure_item(name):
     if "item/" not in name:
@@ -19,7 +17,7 @@ def write_item(data, name):
     path = os.path.join(
         ITEM_DIR, f"{name}.json")
     json.dump(data, open(path, "w"), indent=2)
-    print(f"wrote {name}, {path}")
+    # print(f"wrote {name}, {path}")
 
 
 def make_variation_modelfiles(prefix, parent, texture_name, texture_map):
@@ -66,17 +64,17 @@ def copy_files(frm, items, textures=[], to="build"):
     ITEMS_DST = f"{to}/assets/minecraft/models/item"
     ITEMS_SRC = f"{frm}/assets/minecraft/models/item"
     os.makedirs(ITEMS_DST, exist_ok=True)
-    print(f"copy items into {ITEMS_DST}")
+    # print(f"copy items into {ITEMS_DST}")
     for item in items:
-        print("copy", item)
+        # print("copy", item)
         shutil.copy(f"{ITEMS_SRC}/{item}.json", ITEMS_DST)
 
     TEXTURES_DST = f"{to}/assets/minecraft/textures/item"
     TEXTURES_SRC = f"{frm}/assets/minecraft/textures/item"
     os.makedirs(TEXTURES_DST, exist_ok=True)
-    print(f"copy textures into {TEXTURES_DST}")
+    # print(f"copy textures into {TEXTURES_DST}")
     for texture in textures:
-        print("copy", texture)
+        # print("copy", texture)
         shutil.copy(f"{TEXTURES_SRC}/{texture}.png", TEXTURES_DST)
 
 
@@ -95,7 +93,7 @@ def zip(name):
     if os.path.isfile(target):
         os.remove(target)
     os.chdir(name)
-    subprocess.check_call(["zip", "-r", target, "."])
+    subprocess.check_call(["zip", "-rq", target, "."])
     os.chdir("..")
 
 
