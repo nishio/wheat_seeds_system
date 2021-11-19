@@ -1,14 +1,12 @@
 import pack
+import reference
+
+MODELS = ["cactus_arm", "cactus_flower", "cactus_flower2"]
+TEXTURES = ["cactus_flower", "cactus_flower2"]
 
 
 def model_refs(models={}):
-    models[500] = "cactus_arm"
-    models[501] = "cactus_flower"
-    models[502] = "cactus_flower2"
-    return models
-
-
-TEXTURES = ["cactus_flower", "cactus_flower2"]
+    return reference.add(500, models, MODELS)
 
 
 def main():
