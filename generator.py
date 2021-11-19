@@ -7,18 +7,9 @@ import pack
 import laptop
 import chair
 import reference
+import umbrella
 
 # model refernce definitions
-
-
-UMBRELLA_TEXTURES = {"white": "white_triangle",
-                     "red": "red_triangle"}
-
-
-def umbrella_model_refs(models={}):
-    reference.make_variation(700, "umbrella_up", UMBRELLA_TEXTURES, models)
-    reference.make_variation(720, "umbrella_down", UMBRELLA_TEXTURES, models)
-    return models
 
 
 def add_model_refs(offset, refs, models):
@@ -41,31 +32,9 @@ def all_model_refs():
     models = cactus.model_refs(models)
     models = laptop.model_refs(models)
     models = chair.model_refs(models)
-    models = umbrella_model_refs(models)
+    models = umbrella.model_refs(models)
     models = diagonal_model_refs(models)
     return models
-
-
-def build_umbrella(all_models):
-    PACK_NAME = "umbrella"
-    PACK_DESC = "Umbrella"
-    pack.ready(all_models)
-    models = umbrella_model_refs({})
-    pack.make_variation_modelfiles(
-        "umbrella_up",
-        "item/umbrella_up",
-        "0", UMBRELLA_TEXTURES
-    )
-    pack.make_variation_modelfiles(
-        "umbrella_down",
-        "item/umbrella_down",
-        "0", UMBRELLA_TEXTURES
-    )
-    pack.copy_files("generated", models.values(), [])
-    pack.copy_files("common", ["umbrella_up", "umbrella_down"],
-                    UMBRELLA_TEXTURES.values())
-
-    pack.finish(PACK_NAME, PACK_DESC)
 
 
 def build_diagonal(all_models):
@@ -87,22 +56,7 @@ def build_all_in_one_pack(all_models):
     cactus.main()
     laptop.main()
     chair.main()
-
-    # umbrella
-    models = umbrella_model_refs({})
-    pack.make_variation_modelfiles(
-        "umbrella_up",
-        "item/umbrella_up",
-        "0", UMBRELLA_TEXTURES
-    )
-    pack.make_variation_modelfiles(
-        "umbrella_down",
-        "item/umbrella_down",
-        "0", UMBRELLA_TEXTURES
-    )
-    pack.copy_files("generated", models.values(), [])
-    pack.copy_files("common", ["umbrella_up", "umbrella_down"],
-                    UMBRELLA_TEXTURES.values())
+    umbrella.main()
     # end
     pack.finish(PACK_NAME, PACK_DESC)
 
@@ -122,7 +76,7 @@ def main():
     cactus.build(all_models)
     laptop.build(all_models)
     chair.build(all_models)
-    build_umbrella(all_models)
+    umbrella.build(all_models)
     build_diagonal(all_models)
     build_all_in_one_pack(all_models)
 
