@@ -4,8 +4,8 @@ import laptop
 import chair
 import umbrella
 import diagonal
-
-all_modules = [cactus, laptop, chair, umbrella, diagonal]
+import lights
+all_modules = [cactus, laptop, chair, umbrella, diagonal, lights]
 
 
 def all_model_refs():
