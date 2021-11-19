@@ -34,9 +34,3 @@ def main():
 
     pack.copy_files("generated", models.values(), [])
     pack.copy_files("common", BASES, ["black", "mesh"])
-
-
-def build(all_models):
-    pack.ready(all_models)
-    main()
-    pack.finish(PACK_NAME, PACK_DESC)

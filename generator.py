@@ -1,12 +1,7 @@
 import cactus
-import os
-import json
-import subprocess
-import shutil
 import pack
 import laptop
 import chair
-import reference
 import umbrella
 import diagonal
 

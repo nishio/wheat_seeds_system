@@ -25,10 +25,3 @@ def model_refs(models={}):
 def main():
     models = model_refs({})
     pack.copy_files("common", models.values(), TEXTURES)
-
-
-def build(all_models):
-
-    pack.ready(all_models)
-    main()
-    pack.finish(PACK_NAME, PACK_DESC)
