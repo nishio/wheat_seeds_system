@@ -83,13 +83,9 @@ def build_all_in_one_pack(all_models):
     PACK_NAME = "all-in-one"
     PACK_DESC = "All-in-one Wheat Seeds System"
     pack.ready(all_models)
-    # cactus
+
     cactus.main()
-
-    # laptop
     laptop.main()
-
-    # chairs
     chair.main()
 
     # umbrella
