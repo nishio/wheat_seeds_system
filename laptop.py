@@ -1,20 +1,21 @@
 import pack
+import reference
 
-
-def model_refs(models={}):
-    models[600] = "macbook"
-    models[601] = "desktop"
-    models[602] = "monitor"
-    # models[603] = "large_monitor"
-    # models[604] = "wall_monitor"
-    models[603] = "keyboard"
-    models[604] = "ipad"
-    return models
-
+MODELS = [
+    "macbook",
+    "desktop",
+    "monitor",
+    "keyboard",
+    "ipad"
+]
 
 TEXTURES = [
     "black", "desktop", "keyboard",
     "macbook", "monitor_arm", "monitor_frame", "white"]
+
+
+def model_refs(models={}):
+    return reference.add(600, models, MODELS)
 
 
 def main():
