@@ -30,7 +30,8 @@ def build_all_in_one_pack(all_models):
     laptop.main()
     chair.main()
     umbrella.main()
-    # end
+    # diagonal is experimental pack, so it is not included in all-in-one pack
+
     pack.finish(PACK_NAME, PACK_DESC)
 
 
@@ -57,7 +58,7 @@ def main():
     build(laptop)
     build(chair)
     build(umbrella)
-    diagonal.build(all_models)
+    build(diagonal)
     build_all_in_one_pack(all_models)
 
 

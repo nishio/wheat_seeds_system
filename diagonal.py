@@ -1,6 +1,9 @@
 import reference
 import pack
 
+PACK_NAME = "diagonal"
+DESCRIPTION = "Diagonal Blocks"
+
 
 def model_refs(models={}):
     return reference.add(
@@ -12,12 +15,3 @@ def model_refs(models={}):
 def main():
     models = model_refs({})
     pack.copy_files("common", models.values(), [])
-
-
-def build(all_models):
-    # it is experimental pack, so it is not included in all-in-one pack
-    PACK_NAME = "diagonal"
-    PACK_DESC = "Diagonal Blocks"
-    pack.ready(all_models)
-    main()
-    pack.finish(PACK_NAME, PACK_DESC)
