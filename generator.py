@@ -31,7 +31,7 @@ def make_variation_modelfiles(prefix, parent, texture_name, texture_map):
     for k, v in texture_map.items():
         data = {
             "parent": parent,
-            "textures": {texture_name: v}
+            "textures": {texture_name: assure_item(v)}
         }
         name = f"{prefix}_{k}"
         write_item(data, name)
@@ -103,8 +103,7 @@ def generate_wheat_seeds(models):
     for id in sorted(models):
         name = models[id]
         model = name
-        if "item/" not in model:
-            model = f"item/{model}"
+        model = assure_item(model)
 
         x = {
             "predicate": {"custom_model_data": id},
@@ -114,6 +113,12 @@ def generate_wheat_seeds(models):
         overrides.append(x)
 
     write_item(SEED, "wheat_seeds")
+
+
+def assure_item(name):
+    if "item/" not in name:
+        name = f"item/{name}"
+    return name
 
 
 def copy_files(frm, items, textures=[], to="build"):
