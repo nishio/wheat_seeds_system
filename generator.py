@@ -77,11 +77,22 @@ def chair_model_refs(models={}):
     return models
 
 
+UMBRELLA_TEXTURES = {"white": "white_triangle",
+                     "red": "red_triangle"}
+
+
+def umbrella_model_refs(models={}):
+    make_variation_reference(700, "umbrella_up", UMBRELLA_TEXTURES, models)
+    make_variation_reference(720, "umbrella_down", UMBRELLA_TEXTURES, models)
+    return models
+
+
 def all_model_refs():
     models = {}
     models = cactus_model_refs(models)
     models = laptop_model_refs(models)
     models = chair_model_refs(models)
+    models = umbrella_model_refs(models)
     return models
 
 
@@ -225,6 +236,28 @@ def build_chair_pack():
     finish_pack(PACK_NAME, PACK_DESC)
 
 
+def build_umbrella():
+    PACK_NAME = "umbrella"
+    PACK_DESC = "Umbrella"
+    ready_pack()
+    models = umbrella_model_refs({})
+    make_variation_modelfiles(
+        "umbrella_up",
+        "item/umbrella_up",
+        "0", UMBRELLA_TEXTURES
+    )
+    make_variation_modelfiles(
+        "umbrella_down",
+        "item/umbrella_down",
+        "0", UMBRELLA_TEXTURES
+    )
+    copy_files("generated", models.values(), [])
+    copy_files("common", ["umbrella_up", "umbrella_down"],
+               UMBRELLA_TEXTURES.values())
+
+    finish_pack(PACK_NAME, PACK_DESC)
+
+
 def build_all_in_one_pack():
     PACK_NAME = "all-in-one"
     PACK_DESC = "All-in-one Wheat Seeds System"
@@ -250,6 +283,21 @@ def build_all_in_one_pack():
 
     copy_files("generated", models.values(), [])
     copy_files("common", BASES, ["black", "mesh"])
+    # umbrella
+    models = umbrella_model_refs({})
+    make_variation_modelfiles(
+        "umbrella_up",
+        "item/umbrella_up",
+        "0", UMBRELLA_TEXTURES
+    )
+    make_variation_modelfiles(
+        "umbrella_down",
+        "item/umbrella_up",
+        "0", UMBRELLA_TEXTURES
+    )
+    copy_files("generated", models.values(), [])
+    copy_files("common", ["umbrella_up", "umbrella_down"],
+               UMBRELLA_TEXTURES.values())
     # end
     finish_pack(PACK_NAME, PACK_DESC)
 
@@ -268,6 +316,7 @@ def main():
     build_cactus_pack()
     build_laptop_pack()
     build_chair_pack()
+    build_umbrella()
     build_all_in_one_pack()
 
 
