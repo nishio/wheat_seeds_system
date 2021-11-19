@@ -1,6 +1,9 @@
 import pack
 import reference
 
+PACK_NAME = "laptop"
+DESCRIPTION = "Laptop, Desktop and Keyboard"
+
 MODELS = [
     "macbook",
     "desktop",
@@ -24,8 +27,6 @@ def main():
 
 
 def build(all_models):
-    PACK_NAME = "laptop"
-    PACK_DESC = "Laptop, Desktop and Keyboard"
 
     pack.ready(all_models)
     main()

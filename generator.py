@@ -54,7 +54,7 @@ def main():
     global all_models
     all_models = all_model_refs()
     build(cactus)
-    laptop.build(all_models)
+    build(laptop)
     build(chair)
     umbrella.build(all_models)
     diagonal.build(all_models)
