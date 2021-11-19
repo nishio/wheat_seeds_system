@@ -87,12 +87,28 @@ def umbrella_model_refs(models={}):
     return models
 
 
+def add_model_refs(offset, refs, models):
+    for i, ref in enumerate(refs):
+        id = offset + i
+        assert id not in models
+        models[id] = ref
+    return models
+
+
+def diagonal_model_refs(models={}):
+    return add_model_refs(
+        800,
+        ["diagonal1", "diagonal2",
+         "diagonal3", "diagonal4", "diagonal5"], models)
+
+
 def all_model_refs():
     models = {}
     models = cactus_model_refs(models)
     models = laptop_model_refs(models)
     models = chair_model_refs(models)
     models = umbrella_model_refs(models)
+    models = diagonal_model_refs(models)
     return models
 
 
@@ -258,6 +274,17 @@ def build_umbrella():
     finish_pack(PACK_NAME, PACK_DESC)
 
 
+def build_diagonal():
+    # it is experimental pack, so it is not included in all-in-one pack
+    PACK_NAME = "diagonal"
+    PACK_DESC = "Diagonal Blocks"
+    ready_pack()
+    models = diagonal_model_refs({})
+    copy_files("common", models.values(), [])
+
+    finish_pack(PACK_NAME, PACK_DESC)
+
+
 def build_all_in_one_pack():
     PACK_NAME = "all-in-one"
     PACK_DESC = "All-in-one Wheat Seeds System"
@@ -317,6 +344,7 @@ def main():
     build_laptop_pack()
     build_chair_pack()
     build_umbrella()
+    build_diagonal()
     build_all_in_one_pack()
 
 
