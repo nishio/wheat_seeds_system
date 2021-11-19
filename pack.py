@@ -6,6 +6,8 @@ import subprocess
 TARGET_DIR = "generated"
 ITEM_DIR = f"{TARGET_DIR}/assets/minecraft/models/item"
 
+##
+
 
 def assure_item(name):
     if "item/" not in name:
