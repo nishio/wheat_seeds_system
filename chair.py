@@ -3,6 +3,7 @@ import textures
 import reference
 PACK_NAME = "chairs"
 DESCRIPTION = "Colorful Chairs"
+IS_EXPERIMENTAL = False
 
 
 def model_refs(models={}):

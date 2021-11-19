@@ -3,6 +3,7 @@ import pack
 
 PACK_NAME = "diagonal"
 DESCRIPTION = "Diagonal Blocks"
+IS_EXPERIMENTAL = True
 
 
 def model_refs(models={}):

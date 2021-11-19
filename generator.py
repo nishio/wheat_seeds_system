@@ -10,14 +10,13 @@ import reference
 import umbrella
 import diagonal
 
+all_modules = [cactus, laptop, chair, umbrella, diagonal]
+
 
 def all_model_refs():
     models = {}
-    models = cactus.model_refs(models)
-    models = laptop.model_refs(models)
-    models = chair.model_refs(models)
-    models = umbrella.model_refs(models)
-    models = diagonal.model_refs(models)
+    for m in all_modules:
+        models = m.model_refs(models)
     return models
 
 
@@ -25,12 +24,9 @@ def build_all_in_one_pack(all_models):
     PACK_NAME = "all-in-one"
     PACK_DESC = "All-in-one Wheat Seeds System"
     pack.ready(all_models)
-
-    cactus.main()
-    laptop.main()
-    chair.main()
-    umbrella.main()
-    # diagonal is experimental pack, so it is not included in all-in-one pack
+    for m in all_modules:
+        if not m.IS_EXPERIMENTAL:
+            m.main()
 
     pack.finish(PACK_NAME, PACK_DESC)
 
@@ -45,20 +41,16 @@ def _test():
             doctest.run_docstring_examples(g[k], g, name=k)
 
 
-def build(module):
+def build(module, all_models):
     pack.ready(all_models)
     module.main()
     pack.finish(module.PACK_NAME, module.DESCRIPTION)
 
 
 def main():
-    global all_models
     all_models = all_model_refs()
-    build(cactus)
-    build(laptop)
-    build(chair)
-    build(umbrella)
-    build(diagonal)
+    for m in all_modules:
+        build(m, all_models)
     build_all_in_one_pack(all_models)
 
 

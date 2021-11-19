@@ -3,6 +3,7 @@ import reference
 
 PACK_NAME = "laptop"
 DESCRIPTION = "Laptop, Desktop and Keyboard"
+IS_EXPERIMENTAL = False
 
 MODELS = [
     "macbook",
