@@ -97,7 +97,7 @@ def build_all_in_one_pack(all_models):
     )
     pack.make_variation_modelfiles(
         "umbrella_down",
-        "item/umbrella_up",
+        "item/umbrella_down",
         "0", UMBRELLA_TEXTURES
     )
     pack.copy_files("generated", models.values(), [])
