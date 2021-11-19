@@ -4,7 +4,7 @@ import json
 import subprocess
 import shutil
 import pack
-
+import laptop
 
 COLORS = "white orange magenta light_blue yellow lime pink gray light_gray cyan purple blue brown green red black".split()
 assert len(COLORS) == 16
@@ -27,17 +27,6 @@ def make_variation_reference(offset, prefix, texture_map, models):
 
 
 # model refernce definitions
-
-
-def laptop_model_refs(models={}):
-    models[600] = "macbook"
-    models[601] = "desktop"
-    models[602] = "monitor"
-    # models[603] = "large_monitor"
-    # models[604] = "wall_monitor"
-    models[603] = "keyboard"
-    models[604] = "ipad"
-    return models
 
 
 def chair_model_refs(models={}):
@@ -81,26 +70,11 @@ def diagonal_model_refs(models={}):
 def all_model_refs():
     models = {}
     models = cactus.model_refs(models)
-    models = laptop_model_refs(models)
+    models = laptop.model_refs(models)
     models = chair_model_refs(models)
     models = umbrella_model_refs(models)
     models = diagonal_model_refs(models)
     return models
-
-
-LAPTOP_TEXTURES = [
-    "black", "desktop", "keyboard",
-    "macbook", "monitor_arm", "monitor_frame", "white"]
-
-
-def build_laptop_pack(all_models):
-    PACK_NAME = "laptop"
-    PACK_DESC = "Laptop, Desktop and Keyboard"
-    pack.ready(all_models)
-    models = laptop_model_refs({})
-    pack.copy_files("common", models.values(), LAPTOP_TEXTURES)
-
-    pack.finish(PACK_NAME, PACK_DESC)
 
 
 def build_chair_pack(all_models):
@@ -162,12 +136,11 @@ def build_all_in_one_pack(all_models):
     PACK_DESC = "All-in-one Wheat Seeds System"
     pack.ready(all_models)
     # cactus
-    models = cactus.model_refs({})
-    pack.copy_files("common", models.values(), cactus.TEXTURES)
+    cactus.main()
 
     # laptop
-    models = laptop_model_refs({})
-    pack.copy_files("common", models.values(), LAPTOP_TEXTURES)
+    laptop.main()
+
     # chairs
     models = chair_model_refs({})
     BASES = ["round_chair", "chair", "tall_chair",
@@ -214,7 +187,7 @@ def _test():
 def main():
     all_models = all_model_refs()
     cactus.build(all_models)
-    build_laptop_pack(all_models)
+    laptop.build(all_models)
     build_chair_pack(all_models)
     build_umbrella(all_models)
     build_diagonal(all_models)
