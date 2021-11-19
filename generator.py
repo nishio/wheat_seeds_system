@@ -1,3 +1,4 @@
+import cactus
 import os
 import json
 import subprocess
@@ -44,13 +45,6 @@ def write_item(data, name):
     print(f"wrote {name}, {path}")
 
 # model refernce definitions
-
-
-def cactus_model_refs(models={}):
-    models[500] = "cactus_arm"
-    models[501] = "cactus_flower"
-    models[502] = "cactus_flower2"
-    return models
 
 
 def laptop_model_refs(models={}):
@@ -104,7 +98,7 @@ def diagonal_model_refs(models={}):
 
 def all_model_refs():
     models = {}
-    models = cactus_model_refs(models)
+    models = cactus.model_refs(models)
     models = laptop_model_refs(models)
     models = chair_model_refs(models)
     models = umbrella_model_refs(models)
@@ -211,7 +205,7 @@ def build_cactus_pack():
     PACK_NAME = "cactus"
     PACK_DESC = "Cactus Arm and Flowers"
     ready_pack()
-    models = cactus_model_refs({})
+    models = cactus.model_refs({})
     copy_files("common", models.values(), CACTUS_TEXTURES)
     finish_pack(PACK_NAME, PACK_DESC)
 
@@ -290,7 +284,7 @@ def build_all_in_one_pack():
     PACK_DESC = "All-in-one Wheat Seeds System"
     ready_pack()
     # cactus
-    models = cactus_model_refs({})
+    models = cactus.model_refs({})
     copy_files("common", models.values(), CACTUS_TEXTURES)
 
     # laptop
