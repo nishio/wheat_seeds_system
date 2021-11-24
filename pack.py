@@ -8,6 +8,9 @@ ITEM_DIR = f"{TARGET_DIR}/assets/minecraft/models/item"
 
 
 def assure_item(name):
+    # some model use textures which start with "block/"
+    if "block/" in name:
+        return name
     if "item/" not in name:
         name = f"item/{name}"
     return name
