@@ -5,7 +5,7 @@ chairs
 umbrella
 diagonal
 lights
+misc
 all-in-one
-common/assets/minecraft/textures/block/iron_block.png
-common/assets/minecraft/textures/block/green_wool.png
+common/assets/minecraft/textures/block/*
 TransportPipes
