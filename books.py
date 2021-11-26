@@ -26,8 +26,7 @@ def model_refs(models={}):
 
 def main():
     models = model_refs({})
-    BASES = ["round_chair", "chair", "tall_chair",
-             "chair_with_desk", "chair_with_arm"]
+    BASES = ["book", "simple_book"]
 
     pack.make_variation_modelfiles(
         "simple_book", "item/simple_book",
@@ -39,6 +38,7 @@ def main():
         COVER_TEXTURE)
 
     pack.copy_files("generated", models.values(), [])
-    TEXTURES = list(SIMPLE_COVER_TEXTURE.values()) + \
-        list(COVER_TEXTURE.values())
+    TEXTURES = (
+        list(SIMPLE_COVER_TEXTURE.values()) +
+        list(COVER_TEXTURE.values()))
     pack.copy_files("common", BASES, TEXTURES)
