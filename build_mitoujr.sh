@@ -7,7 +7,7 @@ cp -r TransportPipes/* build
 cp -r all-in-one/* build
 
 cd build
-zip -r ../mitoujr.zip .
+zip -qr ../mitoujr.zip .
 cd ..
 rm -r build
 
