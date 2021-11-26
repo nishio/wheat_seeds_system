@@ -80,7 +80,13 @@ def copy_files(frm, items, textures=[], to="build"):
     # print(f"copy textures into {TEXTURES_DST}")
     for texture in textures:
         # print("copy", texture)
-        shutil.copy(f"{TEXTURES_SRC}/{texture}.png", TEXTURES_DST)
+        if "/" in texture:
+            d = os.path.split(texture)[0]
+            dst = os.path.join(TEXTURES_DST, d)
+            os.makedirs(dst, exist_ok=True)
+        else:
+            dst = TEXTURES_DST
+        shutil.copy(f"{TEXTURES_SRC}/{texture}.png", dst)
 
 
 def write_mcmeta(desc, dst="build"):
