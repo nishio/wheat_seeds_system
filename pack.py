@@ -12,8 +12,10 @@ def assure_item(name):
     if "block/" in name:
         return name
     if "item/" not in name:
-        name = f"item/{name}"
-    return name
+        return f"item/{name}"
+    # if "item/" already in name, error occurs on file copy
+    raise Exception(f"invalid texture: {name}")
+    # return name
 
 
 def write_item(data, name):
