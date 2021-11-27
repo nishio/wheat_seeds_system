@@ -8,8 +8,9 @@ import lights
 import books
 import desks
 import misc
+import kare_san_sui
 all_modules = [cactus, laptop, chair, umbrella,
-               diagonal, lights, books, desks, misc]
+               diagonal, lights, books, desks, kare_san_sui, misc]
 
 
 def all_model_refs():
