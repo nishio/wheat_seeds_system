@@ -8,7 +8,7 @@ TEXTURES = []
 
 
 def model_refs(models={}):
-    return reference.add(1000, models, MODELS)
+    return reference.add(2000, models, MODELS)
 
 
 def main():
