@@ -3,7 +3,9 @@ import reference
 PACK_NAME = "misc"
 DESCRIPTION = "Misc Wheat Seeds System"
 TO_EXCLUDE_FROM_ALLINONE = False
-MODELS = ["glass_table_1x1", "glass_table_3x2", "pc_table_4x2"]
+MODELS = [
+    "hole_grass_block", "hole_dirt",
+]
 TEXTURES = []
 
 
