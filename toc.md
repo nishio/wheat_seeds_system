@@ -233,8 +233,22 @@
 * 1118: book_8
 * 1119: book_9
 
-## Misc Wheat Seeds System(2000-2002)
+## KareSanSui Japanese Traditional Sand Garden(1200-1206)
 
-* 2000: glass_table_1x1
-* 2001: glass_table_3x2
-* 2002: pc_table_4x2
+* 1200: kss_1x1_straight
+* 1201: kss_1x1_curve
+* 1202: kss_2x2_straight
+* 1203: kss_2x2_curve
+* 1204: kss_2x2_circle
+* 1205: kss_3x3_straight
+* 1206: kss_3x3_circle
+
+## Invisible Holes(1300-1301)
+
+* 1300: hole_dirt
+* 1301: hole_cobblestone
+
+## Misc Wheat Seeds System(2000-2001)
+
+* 2000: hole_dirt
+* 2001: hole_cobblestone

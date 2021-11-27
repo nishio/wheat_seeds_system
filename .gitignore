@@ -1,3 +1,7 @@
+common/assets/minecraft/textures/block/*
+TransportPipes
+all-in-one
+misc
 cactus
 generated
 laptop
@@ -8,7 +12,4 @@ lights
 books
 desks
 kare_san_sui
-misc
-all-in-one
-common/assets/minecraft/textures/block/*
-TransportPipes
+invisible_holes

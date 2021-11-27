@@ -1,7 +1,7 @@
 import pack
 import reference
-PACK_NAME = "misc"
-DESCRIPTION = "Misc Wheat Seeds System"
+PACK_NAME = "invisible_holes"
+DESCRIPTION = "Invisible Holes"
 TO_EXCLUDE_FROM_ALLINONE = False
 MODELS = [
     "hole_dirt", "hole_cobblestone",
@@ -10,7 +10,7 @@ TEXTURES = []
 
 
 def model_refs(models={}):
-    return reference.add(2000, models, MODELS)
+    return reference.add(1300, models, MODELS)
 
 
 def main():

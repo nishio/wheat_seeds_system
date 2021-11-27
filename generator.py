@@ -9,8 +9,12 @@ import books
 import desks
 import misc
 import kare_san_sui
-all_modules = [cactus, laptop, chair, umbrella,
-               diagonal, lights, books, desks, kare_san_sui, misc]
+import invisible_holes
+all_modules = [
+    cactus, laptop, chair, umbrella, diagonal,
+    lights, books, desks, kare_san_sui, invisible_holes,
+    misc
+]
 
 
 def all_model_refs():
