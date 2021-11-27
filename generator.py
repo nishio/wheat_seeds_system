@@ -49,6 +49,23 @@ def main():
     for m in all_modules:
         build(m, all_models)
     build_all_in_one_pack(all_models)
+    toc()
+
+
+def toc():
+    "table of contents"
+    toc = []  # start, end, desc, models
+    for m in all_modules:
+        models = m.model_refs({})
+        toc.append((min(models), max(models), m.DESCRIPTION, models))
+    fo = open("toc.md", "w")
+    fo.write("# Wheat Seeds System Index\n")
+    for (start, end, desc, models) in sorted(toc):
+        fo.write(f"\n## {desc}({start}-{end})\n\n")
+        for k in sorted(models):
+            name = models[k]
+            fo.write(f"* {k}: {name}\n")
+    fo.close()
 
 
 if __name__ == "__main__":
