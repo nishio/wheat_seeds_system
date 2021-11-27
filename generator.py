@@ -6,8 +6,10 @@ import umbrella
 import diagonal
 import lights
 import books
+import desks
 import misc
-all_modules = [cactus, laptop, chair, umbrella, diagonal, lights, books, misc]
+all_modules = [cactus, laptop, chair, umbrella,
+               diagonal, lights, books, desks, misc]
 
 
 def all_model_refs():
