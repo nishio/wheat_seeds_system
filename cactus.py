@@ -2,7 +2,7 @@ import pack
 import reference
 PACK_NAME = "cactus"
 DESCRIPTION = "Cactus Arm and Flowers"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 MODELS = ["cactus_arm", "cactus_flower", "cactus_flower2"]
 TEXTURES = ["cactus_flower", "cactus_flower2"]
 

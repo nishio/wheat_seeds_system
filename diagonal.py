@@ -4,7 +4,7 @@ import textures
 
 PACK_NAME = "diagonal"
 DESCRIPTION = "Diagonal Blocks"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 
 BASES = ["diagonal1", "diagonal2",
          "diagonal3", "diagonal4", "diagonal5"]

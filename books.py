@@ -3,7 +3,7 @@ import textures
 import reference
 PACK_NAME = "books"
 DESCRIPTION = "Books"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 
 SIMPLE_COVER_TEXTURE = {
     str(i): f"simple_book_cover/{i}" for i in range(10)}

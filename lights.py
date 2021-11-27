@@ -3,7 +3,7 @@ import pack
 
 PACK_NAME = "lights"
 DESCRIPTION = "Decoration Lights"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 
 
 def model_refs(models={}):

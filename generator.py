@@ -24,7 +24,7 @@ def build_all_in_one_pack(all_models):
     PACK_DESC = "All-in-one Wheat Seeds System"
     pack.ready(all_models)
     for m in all_modules:
-        if not m.IS_EXPERIMENTAL:
+        if not m.TO_EXCLUDE_FROM_ALLINONE:
             m.main()
 
     pack.finish(PACK_NAME, PACK_DESC)

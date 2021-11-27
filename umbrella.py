@@ -2,7 +2,7 @@ import reference
 import pack
 PACK_NAME = "umbrella"
 DESCRIPTION = "Umbrella"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 
 TEXTURES = {
     "white": "white_triangle",

@@ -3,7 +3,7 @@ import reference
 
 PACK_NAME = "laptop"
 DESCRIPTION = "Laptop, Desktop and Keyboard"
-IS_EXPERIMENTAL = False
+TO_EXCLUDE_FROM_ALLINONE = False
 
 MODELS = [
     "macbook",
