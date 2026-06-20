@@ -18,4 +18,4 @@ def model_refs(models={}):
 
 def main():
     models = model_refs({})
-    pack.copy_files("common", models.values(), [])
+    pack.copy_files("common", models.values(), ["white", "black"])
